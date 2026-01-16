@@ -10,9 +10,6 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from src.database.config import db_config
 
 ## Models
-from src.features.post.model import Post
-from src.features.user.model import User
-
 # Base model
 from src.model import Base
 

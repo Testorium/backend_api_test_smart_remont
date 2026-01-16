@@ -145,7 +145,7 @@ class BaseRepository[ModelT]:
 
     async def list(
         self,
-        uniquify: Optional[bool] = None,
+        uniquify: Optional[bool] = False,
         load_options: Optional[LoadOptions] = None,
         order_by: Iterable[OrderByExpr] | None = None,
         error_messages: Optional[ErrorMessages | None] = None,
@@ -172,7 +172,7 @@ class BaseRepository[ModelT]:
 
     async def get_one(
         self,
-        uniquify: Optional[bool] = None,
+        uniquify: Optional[bool] = False,
         load_options: Optional[LoadOptions] = None,
         error_messages: Optional[ErrorMessages | None] = None,
         **kwargs: Any,
@@ -195,7 +195,7 @@ class BaseRepository[ModelT]:
 
     async def get_one_or_none(
         self,
-        uniquify: Optional[bool] = None,
+        uniquify: Optional[bool] = False,
         load_options: Optional[LoadOptions] = None,
         error_messages: Optional[ErrorMessages | None] = None,
         **kwargs: Any,

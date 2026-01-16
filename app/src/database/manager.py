@@ -17,12 +17,19 @@ class AsyncDatabaseManager:
         pool_size: int = 10,
         max_overflow: int = 50,
     ):
+        self.url = url
+        self.echo = echo
+        self.echo_pool = echo_pool
+        self.pool_size = pool_size
+        self.max_overflow = max_overflow
+
+    def initialize(self):
         self.engine: "AsyncEngine" = create_async_engine(
-            url,
-            echo=echo,
-            echo_pool=echo_pool,
-            pool_size=pool_size,
-            max_overflow=max_overflow,
+            self.url,
+            echo=self.echo,
+            echo_pool=self.echo_pool,
+            pool_size=self.pool_size,
+            max_overflow=self.max_overflow,
         )
 
         self.session_factory: async_sessionmaker["AsyncSession"] = async_sessionmaker(
