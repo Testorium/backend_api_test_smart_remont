@@ -145,6 +145,9 @@ class BaseRepository[ModelT]:
 
     async def list(
         self,
+        limit: int,
+        offset: int,
+        conditions: Optional[Iterable[ColumnElement[bool]]] = None,
         uniquify: Optional[bool] = False,
         load_options: Optional[LoadOptions] = None,
         order_by: Iterable[OrderByExpr] | None = None,
@@ -166,6 +169,11 @@ class BaseRepository[ModelT]:
             statement = self._apply_order_by(statement=statement, order_by=order_by)
             statement = self._apply_select_filters_by_kwargs(statement, **kwargs)
             statement = self._apply_load_options(statement, load_options)
+            statement = self._apply_conditions(statement, conditions)
+
+            # NOTE: only for this project
+            statement = statement.limit(limit).offset(offset)
+
             result = await self._execute(statement, uniquify=uniquify)
             instances = result.scalars().all()
             return instances
@@ -335,14 +343,14 @@ class BaseRepository[ModelT]:
             raise NotFoundError(msg)
         return item_or_none
 
-    # @staticmethod
-    # def _get_instrumented_attr(
-    #     model: ModelT,
-    #     key: str | InstrumentedAttribute[Any],
-    # ) -> InstrumentedAttribute[Any]:
-    #     if isinstance(key, str):
-    #         return cast("InstrumentedAttribute[Any]", getattr(model, key))
-    #     return key
+    @staticmethod
+    def _get_instrumented_attr(
+        model: ModelT,
+        key: str | InstrumentedAttribute[Any],
+    ) -> InstrumentedAttribute[Any]:
+        if isinstance(key, str):
+            return cast("InstrumentedAttribute[Any]", getattr(model, key))
+        return key
 
     @staticmethod
     def _apply_conditions(
