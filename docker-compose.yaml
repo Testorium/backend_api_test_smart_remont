@@ -43,9 +43,9 @@ services:
   test_pg:
     image: postgres:16
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: katalok_test
+      POSTGRES_USER: ""
+      POSTGRES_PASSWORD: ""
+      POSTGRES_DB: ""
       TZ: Asia/Almaty
     ports:
       - "5433:5432"
