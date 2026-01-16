@@ -11,11 +11,11 @@ class CartCreate(BaseSchema): ...
 
 class CartItemCreate(BaseSchema):
     product_id: UUID
-    quantity: int
+    quantity: PositiveInt
 
 
 class CartItemUpdate(BaseSchema):
-    quantity: int = PositiveInt
+    quantity: PositiveInt
 
 
 class CartItemRead(BaseSchema):
