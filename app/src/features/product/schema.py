@@ -9,7 +9,6 @@ class ProductCreate(BaseSchema):
     description: Optional[str] = None
     price: float
 
-    image: Optional[str] = None
     category: str
 
 
