@@ -8,8 +8,11 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 # db config
 from src.database.config import db_config
+from src.features.cart.model import Cart, CartItem
 
 ## Models
+from src.features.product.model import Product
+
 # Base model
 from src.model import Base
 
