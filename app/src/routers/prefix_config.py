@@ -1,5 +1,7 @@
 class APIV1PrefixConfig:
     prefix: str = "/v1"
+    products: str = "/products"
+    carts: str = "/carts"
 
 
 class APIPrefixConfig:
