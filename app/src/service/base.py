@@ -1,5 +1,6 @@
 from functools import cached_property
-from typing import List, cast
+from typing import Any, List, cast
+from uuid import UUID
 
 from src.model import Base
 from src.repo.base import BaseRepository
@@ -31,3 +32,10 @@ class BaseService[
 
     async def list(self) -> List[ModelT]:
         return await self.repo.list()
+
+    async def get_one_by_id(
+        self,
+        id: UUID | int,
+        **kwargs: Any,
+    ) -> ModelT:
+        return await self.repo.get_one(id=id, **kwargs)
