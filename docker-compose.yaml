@@ -1,0 +1,44 @@
+services:
+  backend:
+    build:
+      dockerfile: Dockerfile
+      context: ./
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: ./app/.env
+        required: true
+    # depends_on:
+    #   pg:
+    #     condition: service_healthy
+
+    # volumes:
+    #   - ./app:/app
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./app
+          target: /app
+        - action: rebuild
+          path: ./app/requirements.txt
+
+  pg:
+    image: postgres:16
+    user: postgres
+    env_file:
+      - path: ./app/.env
+        required: true
+    environment:
+      - TZ=Asia/Almaty
+    ports:
+     - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  pgdata:
