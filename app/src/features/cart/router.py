@@ -36,6 +36,11 @@ async def get_cart_items(
     x_session_id: Annotated[str, Header()],
     cart_service: CartServiceDep,
 ):
+    cart = await cart_service.get_one_or_none(session_id=x_session_id)
+
+    if not cart:
+        cart = await cart_service.add(session_id=x_session_id)
+
     return await cart_service.get_cart_items(session_id=x_session_id)
 
 
