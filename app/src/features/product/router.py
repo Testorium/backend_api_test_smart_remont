@@ -14,7 +14,7 @@ router = APIRouter(prefix=api_prefix_config.v1.products, tags=["Products"])
 @router.get("/", response_model=PaginatedResponse[ProductRead])
 async def list_all_products(
     service: ProductServiceDep,
-    category: Optional[str] = Query(None, alias="cat"),
+    category: Optional[str] = Query(None),
     price_from: Optional[float] = Query(None, ge=0),
     price_to: Optional[float] = Query(None, ge=0),
     search: Optional[str] = Query(None),
