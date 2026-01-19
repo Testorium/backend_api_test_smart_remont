@@ -8,12 +8,11 @@ services:
     env_file:
       - path: ./app/.env
         required: true
-    # depends_on:
-    #   pg:
-    #     condition: service_healthy
-
-    # volumes:
-    #   - ./app:/app
+    depends_on:
+      pg:
+        condition: service_healthy
+    volumes:
+      - ./app:/app
     develop:
       watch:
         - action: sync+restart
