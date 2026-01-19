@@ -92,7 +92,7 @@ class ProductService(
             )
 
         if category:
-            conditions.append(Product.category == category)
+            conditions.append(Product.category.ilike(f'%{category}%'))
 
         if price_from:
             conditions.append(Product.price >= price_from)
